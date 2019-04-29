@@ -1,22 +1,20 @@
 ---
 # apply some pretty generic configurations
 
-# - name: config| create config directories for {{ user.username }}
-#   become: true
-#   file:
-#     path: "~{{ user.username }}/.var/app/io.github.Hexchat/config/hexchat/"
-#     state: directory
-#     owner: "{{ item.username }}"
-#     group: "{{ item.username }}"
-#     mode: 'u=rwx,go=r'
-#   with_items:
-#     - "{{ users }}"
-#   when: item.username is defined
+- name: config| create config directories for {{ user.username }}
+  become: true
+  file:
+    path: "~{{ user.username }}/.var/app/com.belledonnecommunications.linphone/config/linphone/"
+    state: directory
+    owner: "{{ user.username }}"
+    group: "{{ user.username }}"
+    mode: 'u=rwx,go=r'
+  when: user.username is defined
 
 - name: config| template out a config for {{ user.username }}
   template:
-    src: .linphonerc.j2
-    dest: "~{{ user.username }}/.linphonerc"
+    src: linphonerc.j2
+    dest: "~{{ user.username }}/.var/app/com.belledonnecommunications.linphone/config/linphone/linphonerc"
     owner: "{{ user.username }}"
     group: "{{ user.username }}"
     backup: true
