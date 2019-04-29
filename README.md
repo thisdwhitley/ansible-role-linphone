@@ -17,8 +17,18 @@ At a very high level, this role will:
 
 * install the linphone flatpak
 * [*optional*] if a username is provided, it will template out a generic
-  `~/.linphonerc` file (using what I hope are sane defaults for any missing
+  `linphonerc` file (using what I hope are sane defaults for any missing
   variables)
+
+This role is currently passing my pretty rudimentary tests for the following
+operating systems:
+
+* centos7
+* fedora27
+* fedora28
+* fedora29
+* ubuntu18
+* debian9
 
 The testing of this role is very specific to the role I've set up in molecule,
 but I think I'm ok with that.
@@ -26,6 +36,8 @@ but I think I'm ok with that.
 ## Important Notes
 
 * This role will install the latest version of the flatpak
+* For any phone numbers passed as variables, use *just* the ten digits (no
+  hyphens or prepended country codes, etc)
 
 ## Requirements
 
@@ -43,7 +55,8 @@ sanity checking is minimal (if at all):
       user!**
   * `number`
     * obviously a phone needs a number; if none is passed, **1111111111** is
-      inserted in the hopes to catch your eye the first time you use `linphone`
+      inserted in the hopes to catch your eye the first time you use `linphone`;
+      just use 10 digits
   * `password`
     * this is in plain text so adhere to all general guidelines and cautions; if
       none is passed, the default will be an empty string

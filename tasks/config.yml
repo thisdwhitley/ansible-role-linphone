@@ -19,13 +19,3 @@
     group: "{{ user.username }}"
     backup: true
   when: user.username is defined
-
-# - name: config| write a config file if irc_nick is specified
-#   template:
-#     src: hexchat.conf.j2
-#     dest: "~{{ item.username }}/.var/app/io.github.Hexchat/config/hexchat/hexchat.conf"
-#     owner: "{{ item.username }}"
-#     group: "{{ item.username }}"
-#     backup: true
-#   with_items: "{{ users }}"
-#   when: item.username is defined

@@ -26,3 +26,6 @@
               number: 0123456789
             - name: "Another Friend"
               number: 9012345678
+        - username: test_usr2
+          number: 2222222222
+        - username: test_usr3

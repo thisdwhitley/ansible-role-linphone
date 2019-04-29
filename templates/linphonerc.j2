@@ -44,14 +44,14 @@ remote_ring=/usr/share/sounds/linphone/ringback.wav
 playback_gain_db=0.000000
 
 [auth_info_0]
-username=1{{ user.number }}
-userid=1{{ user.number }}
-passwd={{ user.password }}
-realm="{{ user.realm }}"
+username=1{{ user.number | default('1111111111') }}
+userid=1{{ user.number | default('1111111111') }}
+passwd={{ user.password | default('') }}
+realm="{{ user.realm | default('sip.example.com') }}"
 
 [proxy_0]
-reg_proxy=<sip:{{ user.realm }}>
-reg_identity=sip:1{{ user.number }}@{{ user.realm }}
+reg_proxy=<sip:{{ user.realm | default('sip.example.com') }}>
+reg_identity=sip:1{{ user.number | default('1111111111') }}@{{ user.realm | default('sip.example.com') }}
 reg_expires=3600
 reg_sendregister=1
 publish=0
@@ -181,6 +181,7 @@ mime=theora
 rate=90000
 enabled=0
 
+{% if user.friends is defined %}
 {% for friend in user.friends %}
 [friend_{{ loop.index }}]
 url="{{ friend.name }}" <sip:91{{ friend.number }}@{{ user.realm }}>
@@ -188,3 +189,4 @@ pol=accept
 subscribe=1
 
 {% endfor %}
+{% endif %}
