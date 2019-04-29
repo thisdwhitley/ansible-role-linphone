@@ -1,0 +1,10 @@
+---
+# the main.yml file will simply be used to include necessary other task files
+
+- include_tasks: install.yml
+
+- include_tasks: config.yml
+  with_items: "{{ users }}"
+  loop_control:
+    loop_var: user
+  when: users is defined

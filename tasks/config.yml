@@ -1,0 +1,33 @@
+---
+# apply some pretty generic configurations
+
+# - name: config| create config directories for {{ user.username }}
+#   become: true
+#   file:
+#     path: "~{{ user.username }}/.var/app/io.github.Hexchat/config/hexchat/"
+#     state: directory
+#     owner: "{{ item.username }}"
+#     group: "{{ item.username }}"
+#     mode: 'u=rwx,go=r'
+#   with_items:
+#     - "{{ users }}"
+#   when: item.username is defined
+
+- name: config| template out a config for {{ user.username }}
+  template:
+    src: .linphonerc.j2
+    dest: "~{{ user.username }}/.linphonerc"
+    owner: "{{ user.username }}"
+    group: "{{ user.username }}"
+    backup: true
+  when: user.username is defined
+
+# - name: config| write a config file if irc_nick is specified
+#   template:
+#     src: hexchat.conf.j2
+#     dest: "~{{ item.username }}/.var/app/io.github.Hexchat/config/hexchat/hexchat.conf"
+#     owner: "{{ item.username }}"
+#     group: "{{ item.username }}"
+#     backup: true
+#   with_items: "{{ users }}"
+#   when: item.username is defined

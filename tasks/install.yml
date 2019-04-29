@@ -1,0 +1,21 @@
+---
+# this will be installed via flatpak, so config flatpak repo and install
+
+- name: install| install the flatpak package (OS)
+  become: true
+  package:
+    name: flatpak
+    state: present
+
+- name: install| enable the flatpak repository
+  become: true
+  flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://sdk.gnome.org/gnome-apps.flatpakrepo
+
+- name: install| install flatpak
+  become: true
+  flatpak:
+    name: https://linphone.org/flatpak/linphone.flatpakref
+    state: present

@@ -1,0 +1,28 @@
+---
+- name: Converge
+  hosts: all
+  pre_tasks:
+  - name: create test users
+    become: true
+    user:
+      name: '{{ item }}'
+      state: present
+      home: '/home/{{ item }}'
+      createhome: true
+    with_items:
+      - test_usr1
+      - test_usr2
+      - test_usr3
+
+  roles:
+    - role: ansible-role-linphone
+      users:
+        - username: test_usr1
+          number: 1234567890
+          password: S3cr3t
+          realm: sip.network.com
+          friends:
+            - name: "My Friend"
+              number: 0123456789
+            - name: "Another Friend"
+              number: 9012345678
